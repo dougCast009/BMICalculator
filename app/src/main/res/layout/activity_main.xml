@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:text="BMI Calculator"/>
 
-    <LinearLayout
+    <RadioGroup
         android:layout_margin="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,27 +29,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Female"/>
-    </LinearLayout>
+    </RadioGroup>
 
     <EditText
+        android:inputType="number"
+        android:layout_margin="8dp"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:hint="Age"/>
     <EditText
+        android:inputType="number"
+        android:layout_margin="8dp"
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:hint="Height"/>
     <EditText
+        android:inputType="number"
+        android:layout_margin="8dp"
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:hint="Weight"/>
 
     <Button
+        android:layout_margin="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Calculate"/>
 
     <TextView
+        android:layout_margin="24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="23.6 - You are in a healthy weight"/>
