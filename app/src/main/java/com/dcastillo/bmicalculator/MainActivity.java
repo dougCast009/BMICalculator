@@ -11,13 +11,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    //Class Variables, also called fields
+    TextView resultText;
+    Button calculateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViews();
 
-        TextView resultText = findViewById(R.id.text_view_result);
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Wow! We can react to button click", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void findViews(){
+        resultText = findViewById(R.id.text_view_result);
 
         resultText.setText("Wohoo, I can update my textview using programming code - I'm a real developer!");
 
@@ -28,12 +41,6 @@ public class MainActivity extends AppCompatActivity {
         EditText heightEditText = findViewById(R.id.edit_text_height);
         EditText weightEditText = findViewById(R.id.edit_text_weight);
 
-        Button calculateButton = findViewById(R.id.button_calculate);
-        calculateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Wow! We can react to button click", Toast.LENGTH_LONG).show();
-            }
-        });
+        calculateButton = findViewById(R.id.button_calculate);
     }
 }
