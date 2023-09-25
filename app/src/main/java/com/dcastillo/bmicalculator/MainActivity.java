@@ -10,6 +10,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
     //Class Variables, also called fields
     private TextView resultText;
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void findViews(){
         resultText = findViewById(R.id.text_view_result);
-        resultText.setText("Wohoo, I can update my textview using programming code - I'm a real developer!");
         maleButton = findViewById(R.id.radio_button_male);
         femaleButton = findViewById(R.id.radi_button_female);
         ageEditText = findViewById(R.id.edit_text_age);
@@ -43,28 +44,65 @@ public class MainActivity extends AppCompatActivity {
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calculateBmi();
+                double bmiResult = calculateBmi();
+                String ageText = ageEditText.getText().toString();
+                int age = Integer.parseInt(ageText);
+                if(age >= 18){
+                    displayResult((bmiResult));
+                } else {
+                    displayGuidance(bmiResult);
+                }
             }
         });
     }
 
-    private void calculateBmi() {
-        String ageText = ageEditText.getText().toString();
+    private double calculateBmi() {
         String heightText = heightEditText.getText().toString();
         String weightText = weightEditText.getText().toString();
 
         //Converting the the strings to int
-        int age = Integer.parseInt(ageText);
         double height = Double.parseDouble(heightText);
         int weight = Integer.parseInt(weightText);
 
         double heightInMeters = height / 100;
 
         //Formula
-        double bmi = weight/(heightInMeters*heightInMeters);
+        return weight/(heightInMeters*heightInMeters);
+    }
 
-        //We must convert the decimal to string
-        String bmiTextResult = String.valueOf(bmi);
-        resultText.setText(bmiTextResult);
+    private void displayResult(double bmi){
+        DecimalFormat myDecimalFormatter = new DecimalFormat("0.00");
+        String bmiTextResult = myDecimalFormatter.format(bmi);
+
+        String fullResultString;
+        if(bmi < 18.5){
+            //Display underweight
+            fullResultString = bmiTextResult + " - You are underweight";
+        } else if (bmi > 25) {
+            //Display Overweight
+            fullResultString = bmiTextResult + " - You are overweight";
+        } else {
+            //Dsiplay Healthy
+            fullResultString = bmiTextResult + " - You are a healthy weight";
+        }
+        resultText.setText(fullResultString);
+    }
+
+    private void displayGuidance(double bmi) {
+        DecimalFormat myDecimalFormatter = new DecimalFormat("0.00");
+        String bmiTextResult = myDecimalFormatter.format(bmi);
+
+        String fullResultString;
+        if(maleButton.isChecked()){
+            //Dsiplay boy guidance
+            fullResultString = bmiTextResult + " - As you are under 18, please consult with your doctor for the healthy range for boys";
+        } else if (femaleButton.isChecked()) {
+            //Display girl guidance
+            fullResultString = bmiTextResult + " - As you are under 18, please consult with your doctor for the healthy range for girls";
+        } else {
+            //Display General Guidance
+            fullResultString = bmiTextResult + " - As you are under 18, please consult with your doctor for the healthy range";
+        }
+        resultText.setText(fullResultString);
     }
 }
